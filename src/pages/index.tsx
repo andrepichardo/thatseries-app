@@ -5,7 +5,7 @@ export default function Home() {
     <Layout title="Home">
       <div className="bg-[#1c2532] h-full">
         <div className="flex items-center gap-2 containerLayout py-5">
-          <h1 className="font-bold w-fit whitespace-nowrap text-xl md:text-3xl">
+          <h1 className="font-bold w-fit whitespace-nowrap xs:text-xl md:text-3xl">
             Series de TV Más Populares
           </h1>
           <span className="w-full h-[2px] rounded-full mt-2 bg-white" />

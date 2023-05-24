@@ -55,7 +55,7 @@ export const Search = () => {
       <button
         title="Buscar por Serie de TV..."
         onClick={handleShowMobileSearch}
-        className="absolute flex items-center justify-center text-white transition-all border border-transparent rounded-full md:hidden active:scale-95 active:bg-white active:border-cyan-700 active:text-cyan-700 left-6 top-5 h-11 w-11 hover:bg-cyan-600 bg-cyan-700"
+        className="absolute flex items-center justify-center text-white transition-all border border-transparent rounded-full md:hidden active:scale-95 active:bg-white active:border-cyan-700 active:text-cyan-700 left-3 xs:left-6 top-5 h-11 w-11 hover:bg-cyan-600 bg-cyan-700"
       >
         <FiSearch size={20} />
       </button>
