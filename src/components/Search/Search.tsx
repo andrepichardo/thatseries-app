@@ -1,0 +1,100 @@
+import React from 'react';
+import { useState, useRef } from 'react';
+import { FiSearch } from 'react-icons/fi';
+
+export const Search = () => {
+  const inputRef = useRef<HTMLInputElement>(null);
+  const [search, setSearch] = useState('');
+  const [mobileSearch, setMobileSearch] = useState(false);
+
+  const handleShowMobileSearch = () => {
+    setMobileSearch(!mobileSearch);
+    if (inputRef.current != null) {
+      inputRef.current.focus();
+    }
+  };
+
+  const handleSearch = () => {
+    if (mobileSearch == true && search.length > 0) {
+      setMobileSearch(false);
+    }
+    setSearch('');
+  };
+
+  const handleKeyDown = (event: any) => {
+    if (event.key === 'Enter') {
+      handleSearch();
+      if (mobileSearch == true && search.length > 0) {
+        setMobileSearch(false);
+      }
+    }
+  };
+  return (
+    <div>
+      <div className="absolute items-center hidden md:flex h-10 md:left-8 2xl:left-10 top-5 ">
+        <input
+          value={search}
+          onChange={(e) => {
+            setSearch(e.target.value);
+          }}
+          onKeyDown={handleKeyDown}
+          placeholder="Buscar por Serie de TV..."
+          className="h-[35px] pl-3 pr-10 text-sm font-semibold transition-all duration-300 rounded-full outline-none focus:ring-2 ring-2 ring-transparent focus:ring-cyan-700 md:w-48 lg:w-60 placeholder:text-xs text-cyan-600"
+          type="search"
+        />
+        <button
+          type="submit"
+          onClick={handleSearch}
+          title="Buscar por Serie de TV..."
+          className="absolute flex items-center justify-center h-full text-white transition-all border border-transparent rounded-full active:scale-90 active:bg-white active:border-cyan-700 active:text-cyan-700 -right-1 w-10 hover:bg-cyan-600 bg-cyan-700"
+        >
+          <FiSearch size={18} />
+        </button>
+      </div>
+
+      <button
+        title="Buscar por Serie de TV..."
+        onClick={handleShowMobileSearch}
+        className="absolute flex items-center justify-center text-white transition-all border border-transparent rounded-full md:hidden active:scale-95 active:bg-white active:border-cyan-700 active:text-cyan-700 left-6 top-5 h-11 w-11 hover:bg-cyan-600 bg-cyan-700"
+      >
+        <FiSearch size={20} />
+      </button>
+      <div
+        className={
+          mobileSearch
+            ? 'w-11/12 max-w-lg left-0 px-3 top-5 right-0 fixed mx-auto z-50 transition-all duration-500'
+            : 'w-11/12 max-w-lg left-0 px-3 top-[-100%] right-0 fixed mx-auto z-50 transition-all duration-500'
+        }
+      >
+        <input
+          ref={inputRef}
+          onClick={(e) => {
+            e.stopPropagation();
+          }}
+          value={search}
+          onChange={(e) => {
+            setSearch(e.target.value);
+          }}
+          onKeyDown={handleKeyDown}
+          placeholder="Buscar por Serie de TV..."
+          className="w-full py-4 pl-4 rounded-full outline-none pr-14 text-cyan-600 font-semibold"
+          type="search"
+        />
+        <FiSearch
+          onClick={handleSearch}
+          title="Buscar por Serie de TV..."
+          className="absolute top-0 bottom-0 my-auto text-gray-400 transition-all rounded-full cursor-pointer right-8 hover:text-gray-300"
+          size={20}
+        />
+      </div>
+      {mobileSearch ? (
+        <div
+          onClick={() => setMobileSearch(!mobileSearch)}
+          className="fixed top-0 left-0 z-10 w-full h-full min-h-screen transition-all duration-500 bg-black/60"
+        />
+      ) : (
+        <div className="fixed top-0 left-0 z-10 invisible w-full h-full min-h-screen transition-all duration-500 bg-transparent" />
+      )}
+    </div>
+  );
+};
