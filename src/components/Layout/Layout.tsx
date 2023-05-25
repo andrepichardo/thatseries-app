@@ -7,10 +7,9 @@ const LatoFont = Lato({ weight: '400', subsets: ['latin'] });
 interface Props {
   children?: ReactNode;
   title?: string;
-  search?: any;
 }
 
-const Layout = ({ children, title, search }: Props) => {
+const Layout = ({ children, title }: Props) => {
   return (
     <div className={LatoFont.className}>
       <Head>
@@ -20,7 +19,7 @@ const Layout = ({ children, title, search }: Props) => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <div className="flex flex-col text-white w-full h-full min-h-screen justify-between bg-[#1c2532]">
-        <Navbar searchValue={search} />
+        <Navbar />
         <main className="mt-28">{children}</main>
       </div>
     </div>

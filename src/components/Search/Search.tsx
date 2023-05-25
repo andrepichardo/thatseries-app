@@ -1,14 +1,15 @@
+import { getSearch } from '@/pages/api/axios';
+import { useQuery } from '@tanstack/react-query';
 import { useRouter } from 'next/router';
 import React from 'react';
 import { useState, useRef } from 'react';
 import { FiSearch } from 'react-icons/fi';
 
-export const Search = ({ value = '' }: any) => {
+export const Search = () => {
   const inputRef = useRef<HTMLInputElement>(null);
-  const [search, setSearch] = useState(value);
+  const [search, setSearch] = useState('');
   const [mobileSearch, setMobileSearch] = useState(false);
   const router = useRouter();
-  value = search;
 
   const handleShowMobileSearch = () => {
     setMobileSearch(!mobileSearch);

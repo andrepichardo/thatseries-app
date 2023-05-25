@@ -16,14 +16,10 @@ export default function SearchPage() {
   const [search, setSearch] = useState<any>(slug);
 
   useEffect(() => {
-    return () => {
-      if (search?.length != undefined) {
-        if (search.length > 0) {
-          setSearch(slug);
-        }
-      }
-    };
-  }, [slug, search]);
+    if (slug) {
+      setSearch(slug);
+    }
+  }, [slug]);
 
   const {
     isLoading,
@@ -32,9 +28,12 @@ export default function SearchPage() {
     data: searchResults,
     isFetching,
     isPreviousData,
-  } = useQuery(['/search', currentPage], () => getSearch(currentPage, search), {
-    keepPreviousData: true,
-  });
+    refetch,
+  } = useQuery(['/search', currentPage], () => getSearch(currentPage, search));
+
+  useEffect(() => {
+    refetch(search);
+  }, [search, refetch]);
 
   const getPageGroup = () => {
     const totalPages = searchResults.pages;
@@ -73,7 +72,7 @@ export default function SearchPage() {
       <button
         className="btn-xs md:btn"
         onClick={prevPage}
-        disabled={isPreviousData || currentPage === 1}
+        disabled={isPreviousData || currentPage === 1 || content.length == 0}
       >
         <FiChevronLeft className="w-4 h-4 md:w-6 md:h-6" />
       </button>
@@ -89,7 +88,11 @@ export default function SearchPage() {
       <button
         className="btn-xs md:btn"
         onClick={nextPage}
-        disabled={isPreviousData || currentPage === searchResults.pages}
+        disabled={
+          isPreviousData ||
+          currentPage === searchResults.pages ||
+          content.length == 0
+        }
       >
         <FiChevronRight className="w-4 h-4 md:w-6 md:h-6" />
       </button>
@@ -97,9 +100,9 @@ export default function SearchPage() {
   );
 
   return (
-    <Layout title={`Results for '${slug}'`} search={slug}>
+    <Layout title={`Results for '${slug}'`}>
       <div className="bg-[#1c2532] h-full">
-        <TitleBanner title={`Results for: ${search}`} />
+        <TitleBanner title={`Results for: ${slug}`} />
 
         {isFetching ? (
           <div className="grid w-full pb-5 containerLayout xs:grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-y-4 gap-x-3 md:gap-6">
@@ -112,11 +115,17 @@ export default function SearchPage() {
           </div>
         ) : (
           <div className="grid w-full grid-cols-1 pb-5 containerLayout xs:grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-y-4 gap-x-3 md:gap-6">
-            {slug != undefined && search != undefined
-              ? content.length > 0
-                ? content
-                : 'No Results Found.'
-              : 'Look for Any TV Show Typing in the Search Engine Above.'}
+            {slug != undefined && search != undefined ? (
+              content.length > 0 ? (
+                content
+              ) : (
+                <div className="flex justify-center items-center w-full h-[400px] col-span-full font-semibold text-4xl">
+                  No Results Found... Try Again.
+                </div>
+              )
+            ) : (
+              'Look for Any TV Show Typing in the Search Engine Above.'
+            )}
           </div>
         )}
         {nav}
