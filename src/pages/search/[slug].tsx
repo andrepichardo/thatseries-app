@@ -1,33 +1,43 @@
 import Layout from '@/components/Layout/Layout';
 import { useQuery } from '@tanstack/react-query';
-import { getMostPopular } from './api/axios';
-import { useState } from 'react';
-import MostPopular from '@/components/MostPopular';
+import { getSearch } from '../api/axios';
+import { useState, useEffect } from 'react';
 import PageButton from '@/components/PageButton';
 import Skeleton from '@/components/Skeleton';
 import TitleBanner from '@/components/common/TitleBanner';
 import { FiChevronLeft, FiChevronRight } from 'react-icons/fi';
+import { useRouter } from 'next/router';
+import SearchResults from '@/components/Search/SearchResults';
 
-export default function Home() {
+export default function SearchPage() {
   const [currentPage, setCurrentPage] = useState(1);
+  const router = useRouter();
+  const { slug } = router.query;
+  const [search, setSearch] = useState<any>(slug);
+
+  useEffect(() => {
+    return () => {
+      if (search?.length != undefined) {
+        if (search.length > 0) {
+          setSearch(slug);
+        }
+      }
+    };
+  }, [slug, search]);
 
   const {
     isLoading,
     isError,
     error,
-    data: populars,
+    data: searchResults,
     isFetching,
     isPreviousData,
-  } = useQuery(
-    ['/most-popular', currentPage],
-    () => getMostPopular(currentPage),
-    {
-      keepPreviousData: true,
-    }
-  );
+  } = useQuery(['/search', currentPage], () => getSearch(currentPage, search), {
+    keepPreviousData: true,
+  });
 
   const getPageGroup = () => {
-    const totalPages = populars.pages;
+    const totalPages = searchResults.pages;
     const pageGroup = [];
     const startPage = Math.max(currentPage - 5, 1);
     const endPage = Math.min(startPage + 9, totalPages);
@@ -48,12 +58,18 @@ export default function Home() {
   const nextPage = () => setCurrentPage((prev) => prev + 1);
   const prevPage = () => setCurrentPage((prev) => prev - 1);
 
-  const content = populars.tv_shows.map((popular: any) => (
-    <MostPopular key={popular.id} popular={popular} />
+  const content = searchResults.tv_shows.map((results: any) => (
+    <SearchResults key={results.id} search={results} />
   ));
 
   const nav = (
-    <div className="flex justify-center my-8 btn-group containerLayout">
+    <div
+      className={
+        search != undefined
+          ? 'flex justify-center my-8 btn-group containerLayout'
+          : 'hidden'
+      }
+    >
       <button
         className="btn-xs md:btn"
         onClick={prevPage}
@@ -73,7 +89,7 @@ export default function Home() {
       <button
         className="btn-xs md:btn"
         onClick={nextPage}
-        disabled={isPreviousData || currentPage === populars.pages}
+        disabled={isPreviousData || currentPage === searchResults.pages}
       >
         <FiChevronRight className="w-4 h-4 md:w-6 md:h-6" />
       </button>
@@ -81,9 +97,9 @@ export default function Home() {
   );
 
   return (
-    <Layout title="Home">
+    <Layout title={`Results for '${slug}'`} search={slug}>
       <div className="bg-[#1c2532] h-full">
-        <TitleBanner title="Most Popular TV Shows" />
+        <TitleBanner title={`Results for: ${search}`} />
 
         {isFetching ? (
           <div className="grid w-full pb-5 containerLayout xs:grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-y-4 gap-x-3 md:gap-6">
@@ -96,7 +112,11 @@ export default function Home() {
           </div>
         ) : (
           <div className="grid w-full grid-cols-1 pb-5 containerLayout xs:grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-y-4 gap-x-3 md:gap-6">
-            {content}
+            {slug != undefined && search != undefined
+              ? content.length > 0
+                ? content
+                : 'No Results Found.'
+              : 'Look for Any TV Show Typing in the Search Engine Above.'}
           </div>
         )}
         {nav}

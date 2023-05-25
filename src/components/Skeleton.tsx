@@ -11,7 +11,7 @@ const Skeleton = () => {
         title={
           router.asPath === '/' || router.asPath === '/most-popular'
             ? 'Most Popular TV Shows'
-            : `Resultado de búsqueda para: Titulo`
+            : `Results for: Loading...`
         }
       />
       <div className="grid w-full pb-5 containerLayout xs:grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-y-4 gap-x-3 md:gap-6">

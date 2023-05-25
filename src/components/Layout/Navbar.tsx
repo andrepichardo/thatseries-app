@@ -6,7 +6,7 @@ import { Search } from '../Search/Search';
 import Breadcrumbs from '../Breadcrumbs';
 import Credits from '../Credits';
 
-export const Navbar = () => {
+export const Navbar = ({ searchValue }: any) => {
   const [shadow, setShadow] = useState(false);
   const [navBg, setNavBg] = useState('#1f2937');
   const router = useRouter();
@@ -37,8 +37,8 @@ export const Navbar = () => {
           : 'fixed w-full h-[105px] z-[100]'
       }
     >
-      <nav className="flex justify-center items-start containerLayout relative">
-        <Search />
+      <nav className="relative flex items-start justify-center containerLayout">
+        <Search value={...searchValue} />
         <Link className="mt-6 md:mt-4" href="/">
           <Logo />
         </Link>

@@ -1,11 +1,14 @@
+import { useRouter } from 'next/router';
 import React from 'react';
 import { useState, useRef } from 'react';
 import { FiSearch } from 'react-icons/fi';
 
-export const Search = () => {
+export const Search = ({ value = '' }: any) => {
   const inputRef = useRef<HTMLInputElement>(null);
-  const [search, setSearch] = useState('');
+  const [search, setSearch] = useState(value);
   const [mobileSearch, setMobileSearch] = useState(false);
+  const router = useRouter();
+  value = search;
 
   const handleShowMobileSearch = () => {
     setMobileSearch(!mobileSearch);
@@ -15,6 +18,9 @@ export const Search = () => {
   };
 
   const handleSearch = () => {
+    if (search.length > 0) {
+      router.push(`/search/${search}`);
+    }
     if (mobileSearch == true && search.length > 0) {
       setMobileSearch(false);
     }
@@ -31,7 +37,7 @@ export const Search = () => {
   };
   return (
     <div>
-      <div className="absolute items-center hidden md:flex h-10 md:left-8 2xl:left-10 top-5 ">
+      <div className="absolute items-center hidden h-10 md:flex md:left-8 2xl:left-10 top-5 ">
         <input
           value={search}
           onChange={(e) => {
@@ -46,7 +52,7 @@ export const Search = () => {
           type="submit"
           onClick={handleSearch}
           title="Search by TV Show..."
-          className="absolute flex items-center justify-center h-full text-white transition-all border border-transparent rounded-full active:scale-90 active:bg-white active:border-cyan-700 active:text-cyan-700 -right-1 w-10 hover:bg-cyan-600 bg-cyan-700"
+          className="absolute flex items-center justify-center w-10 h-full text-white transition-all border border-transparent rounded-full active:scale-90 active:bg-white active:border-cyan-700 active:text-cyan-700 -right-1 hover:bg-cyan-600 bg-cyan-700"
         >
           <FiSearch size={18} />
         </button>
@@ -77,7 +83,7 @@ export const Search = () => {
           }}
           onKeyDown={handleKeyDown}
           placeholder="Search by TV Show..."
-          className="w-full py-4 pl-4 rounded-full outline-none pr-14 text-cyan-600 font-semibold"
+          className="w-full py-4 pl-4 font-semibold rounded-full outline-none pr-14 text-cyan-600"
           type="search"
         />
         <FiSearch

@@ -9,9 +9,9 @@ export const getMostPopular = async (pageParam = 1) => {
   return response.data;
 };
 
-export const getSearch = async (pageParam = 1, search) => {
+export const getSearch = async (pageParam = 1, search = '') => {
   const response = await axiosEpisoDate.get(
-    `/search?q=${search}page=${pageParam}`
+    `/search?q=${search}&page=${pageParam}`
   );
   return response.data;
 };

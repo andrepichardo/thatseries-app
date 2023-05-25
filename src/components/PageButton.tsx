@@ -10,7 +10,11 @@ type Props = {
 const PageButton = ({ pg, setPage, isPreviousData, page }: Props) => {
   return (
     <button
-      className={pg === page ? 'bg-cyan-800 btn' : 'btn'}
+      className={
+        pg === page
+          ? 'bg-cyan-800 btn-xs md:btn md:bg-cyan-800'
+          : 'btn-xs md:btn'
+      }
       onClick={() => setPage(pg)}
       disabled={isPreviousData}
     >

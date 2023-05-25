@@ -2,10 +2,10 @@ import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react';
 import { TbListDetails } from 'react-icons/tb';
-import NoImage from '../../public/images/no-image-png-2.png';
+import NoImage from '../../../public/images/no-image-png-2.png';
 
 type Props = {
-  popular: Provider;
+  search: Provider;
 };
 
 interface Provider {
@@ -20,12 +20,12 @@ interface Provider {
   image_thumbnail_path: string;
 }
 
-const MostPopular = ({ popular }: Props) => {
+const SearchResults = ({ search }: Props) => {
   return (
-    <Link href={`/show-details/${popular.permalink}`}>
+    <Link href={`/show-details/${search.permalink}`}>
       <div className="flex flex-col w-full shadow-2xl text-cyan-900 shadow-gray-900">
         <div className="relative group">
-          {!popular.image_thumbnail_path.includes('tv-show') ? (
+          {!search.image_thumbnail_path.includes('tv-show') ? (
             <Image
               priority
               src={NoImage}
@@ -38,7 +38,7 @@ const MostPopular = ({ popular }: Props) => {
           ) : (
             <Image
               priority
-              src={popular.image_thumbnail_path}
+              src={search.image_thumbnail_path}
               alt=""
               width={100000}
               height={100000}
@@ -49,15 +49,15 @@ const MostPopular = ({ popular }: Props) => {
           <div className="absolute transition-all -z-50 group-hover:z-50 group-hover:block top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%]">
             <p className="pt-2 pb-1 text-sm text-center text-white truncate md:text-base">
               <b>Network</b>:{' '}
-              <span title={popular.network}>
-                {popular.network?.length > 12
-                  ? popular.network.substring(0, 12) + '...'
-                  : popular.network || 'UNDEFINED'}
+              <span title={search.network}>
+                {search.network?.length > 12
+                  ? search.network.substring(0, 12) + '...'
+                  : search.network || 'UNDEFINED'}
               </span>{' '}
-              ({popular.country})
+              ({search.country})
             </p>
             <p className="pb-4 text-sm text-center text-white truncate md:text-base">
-              <b>Start date</b>: {popular.start_date}
+              <b>Start date</b>: {search.start_date}
             </p>
             <button className="text-center w-fit mx-auto px-2 flex items-center justify-center gap-2 py-1.5 rounded-lg whitespace-nowrap bg-white text-gray-700 hover:bg-[#eedeee] transition-all font-bold uppercase text-xs md:text-sm cursor-pointer">
               <TbListDetails size={20} /> View Details
@@ -67,22 +67,22 @@ const MostPopular = ({ popular }: Props) => {
         <div className="bg-white rounded-b-lg py-2 px-2.5 flex flex-col gap-1">
           <div className="flex items-center justify-between truncate">
             <p
-              title={popular.name}
+              title={search.name}
               className="font-semibold truncate whitespace-nowrap"
             >
-              {popular.name}
+              {search.name}
             </p>
             <p
-              title={popular.network}
+              title={search.network}
               className="text-sm text-white rounded-full truncate bg-cyan-700 px-2 py-0.5"
             >
-              {popular.network || 'UNDEFINED'}
+              {search.network || 'UNDEFINED'}
             </p>
           </div>
           <p className="text-sm">
             Status:{' '}
             <span className="font-semibold underline underline-offset-2">
-              {popular.status}
+              {search.status}
             </span>
           </p>
         </div>
@@ -91,4 +91,4 @@ const MostPopular = ({ popular }: Props) => {
   );
 };
 
-export default MostPopular;
+export default SearchResults;
