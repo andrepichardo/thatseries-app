@@ -10,7 +10,7 @@ const Breadcrumbs = (props: Props) => {
         <li>
           <Link href="/">Home</Link>
         </li>
-        <li>Más Populares</li>
+        <li>Most Popular</li>
       </ul>
     </div>
   );

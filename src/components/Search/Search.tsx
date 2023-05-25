@@ -38,14 +38,14 @@ export const Search = () => {
             setSearch(e.target.value);
           }}
           onKeyDown={handleKeyDown}
-          placeholder="Buscar por Serie de TV..."
+          placeholder="Search by TV Show..."
           className="h-[35px] pl-3 pr-10 text-sm font-semibold transition-all duration-300 rounded-full outline-none focus:ring-2 ring-2 ring-transparent focus:ring-cyan-700 md:w-48 lg:w-60 placeholder:text-xs text-cyan-600"
           type="search"
         />
         <button
           type="submit"
           onClick={handleSearch}
-          title="Buscar por Serie de TV..."
+          title="Search by TV Show..."
           className="absolute flex items-center justify-center h-full text-white transition-all border border-transparent rounded-full active:scale-90 active:bg-white active:border-cyan-700 active:text-cyan-700 -right-1 w-10 hover:bg-cyan-600 bg-cyan-700"
         >
           <FiSearch size={18} />
@@ -53,7 +53,7 @@ export const Search = () => {
       </div>
 
       <button
-        title="Buscar por Serie de TV..."
+        title="Search by TV Show..."
         onClick={handleShowMobileSearch}
         className="absolute flex items-center justify-center text-white transition-all border border-transparent rounded-full md:hidden active:scale-95 active:bg-white active:border-cyan-700 active:text-cyan-700 left-3 xs:left-6 top-5 h-11 w-11 hover:bg-cyan-600 bg-cyan-700"
       >
@@ -76,13 +76,13 @@ export const Search = () => {
             setSearch(e.target.value);
           }}
           onKeyDown={handleKeyDown}
-          placeholder="Buscar por Serie de TV..."
+          placeholder="Search by TV Show..."
           className="w-full py-4 pl-4 rounded-full outline-none pr-14 text-cyan-600 font-semibold"
           type="search"
         />
         <FiSearch
           onClick={handleSearch}
-          title="Buscar por Serie de TV..."
+          title="Search by TV Show..."
           className="absolute top-0 bottom-0 my-auto text-gray-400 transition-all rounded-full cursor-pointer right-8 hover:text-gray-300"
           size={20}
         />

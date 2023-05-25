@@ -20,7 +20,7 @@ const Layout = ({ children, title }: Props) => {
       </Head>
       <div className="flex flex-col text-white w-full h-full min-h-screen justify-between bg-[#1c2532]">
         <Navbar />
-        <main className="mt-24">{children}</main>
+        <main className="mt-28">{children}</main>
       </div>
     </div>
   );
