@@ -1,16 +1,28 @@
 import Link from 'next/link';
-import React from 'react';
+import { useRouter } from 'next/router';
 
-type Props = {};
+const Breadcrumbs = () => {
+  const router = useRouter();
 
-const Breadcrumbs = (props: Props) => {
+  console.log(router.pathname);
+
   return (
-    <div className="text-xs md:text-sm breadcrumbs absolute bottom-0 left-3 xs:left-6 md:left-8 2xl:left-10">
+    <div className="absolute bottom-0 text-xs md:text-sm breadcrumbs left-3 xs:left-6 md:left-8 2xl:left-10">
       <ul>
         <li>
           <Link href="/">Home</Link>
         </li>
-        <li>Most Popular</li>
+        {router.pathname == '/' && <li>Most Popular</li>}
+        {router.pathname == `/search/[slug]` && (
+          <>
+            <li>
+              <Link href="/search">Search</Link>
+            </li>
+            <li className="">
+              {router.asPath.substring(8).replaceAll('%20', ' ')}
+            </li>
+          </>
+        )}
       </ul>
     </div>
   );

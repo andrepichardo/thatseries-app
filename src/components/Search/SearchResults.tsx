@@ -2,14 +2,13 @@ import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react';
 import { TbListDetails } from 'react-icons/tb';
-import NoImage from '../../../public/images/no-image-png-2.png';
 
 type Props = {
   search: Provider;
 };
 
 interface Provider {
-  id: null;
+  id: number;
   name: string;
   permalink: string;
   start_date: string;
@@ -25,27 +24,15 @@ const SearchResults = ({ search }: Props) => {
     <Link href={`/show-details/${search.permalink}`}>
       <div className="flex flex-col w-full shadow-2xl text-cyan-900 shadow-gray-900">
         <div className="relative group">
-          {!search.image_thumbnail_path.includes('tv-show') ? (
-            <Image
-              priority
-              src={NoImage}
-              alt=""
-              width={100000}
-              height={100000}
-              sizes="100vw"
-              className="w-full object-cover group-hover:opacity-10 transition-all h-auto min-h-[260px] max-h-[260px] lg:min-h-[320px] lg:max-h-[320px] rounded-t-lg"
-            />
-          ) : (
-            <Image
-              priority
-              src={search.image_thumbnail_path}
-              alt=""
-              width={100000}
-              height={100000}
-              sizes="100vw"
-              className="w-full object-cover group-hover:opacity-10 transition-all h-auto min-h-[260px] max-h-[260px] lg:min-h-[320px] lg:max-h-[320px] rounded-t-lg"
-            />
-          )}
+          <Image
+            priority
+            src={search.image_thumbnail_path}
+            alt=""
+            width={100000}
+            height={100000}
+            sizes="100vw"
+            className="w-full object-cover group-hover:opacity-10 transition-all h-auto min-h-[260px] max-h-[260px] lg:min-h-[320px] lg:max-h-[320px] rounded-t-lg"
+          />
           <div className="absolute transition-all -z-50 group-hover:z-50 group-hover:block top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%]">
             <p className="pt-2 pb-1 text-sm text-center text-white truncate md:text-base">
               <b>Network</b>:{' '}

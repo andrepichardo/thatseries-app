@@ -119,7 +119,7 @@ export default function SearchPage() {
               content.length > 0 ? (
                 content
               ) : (
-                <div className="flex justify-center items-center w-full h-[400px] col-span-full font-semibold text-4xl">
+                <div className="flex justify-center items-center w-full h-[400px] col-span-full font-semibold text-center text-xl md:text-4xl">
                   No Results Found... Try Again.
                 </div>
               )
