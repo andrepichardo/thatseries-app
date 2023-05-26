@@ -62,13 +62,7 @@ export default function SearchPage() {
   ));
 
   const nav = (
-    <div
-      className={
-        search != undefined
-          ? 'flex justify-center my-8 btn-group containerLayout'
-          : 'hidden'
-      }
-    >
+    <div className="flex justify-center my-8 btn-group containerLayout">
       <button
         className="btn-xs md:btn"
         onClick={prevPage}
@@ -115,16 +109,12 @@ export default function SearchPage() {
           </div>
         ) : (
           <div className="grid w-full grid-cols-1 pb-5 containerLayout xs:grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-y-4 gap-x-3 md:gap-6">
-            {slug != undefined && search != undefined ? (
-              content.length > 0 ? (
-                content
-              ) : (
-                <div className="flex justify-center items-center w-full h-[400px] col-span-full font-semibold text-center text-xl md:text-4xl">
-                  No Results Found... Try Again.
-                </div>
-              )
+            {content.length > 0 ? (
+              content
             ) : (
-              'Look for Any TV Show Typing in the Search Engine Above.'
+              <div className="flex justify-center items-center w-full h-[400px] col-span-full font-semibold text-center text-xl md:text-4xl">
+                No Results Found... Try Again.
+              </div>
             )}
           </div>
         )}

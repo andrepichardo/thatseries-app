@@ -7,6 +7,7 @@ import PageButton from '@/components/PageButton';
 import Skeleton from '@/components/Skeleton';
 import TitleBanner from '@/components/common/TitleBanner';
 import { FiChevronLeft, FiChevronRight } from 'react-icons/fi';
+import FSkeleton from '@/components/FSkeleton';
 
 export default function Home() {
   const [currentPage, setCurrentPage] = useState(1);
@@ -86,14 +87,7 @@ export default function Home() {
         <TitleBanner title="Most Popular TV Shows" />
 
         {isFetching ? (
-          <div className="grid w-full pb-5 containerLayout xs:grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-y-4 gap-x-3 md:gap-6">
-            {[...Array(20)].map((e, i) => (
-              <div
-                className="w-full animate-[pulse_1s_infinite] bg-gray-700 h-auto min-h-[314px] max-h-[314px] lg:min-h-[384px] lg:max-h-[384px] rounded-lg"
-                key={i}
-              />
-            ))}
-          </div>
+          <FSkeleton />
         ) : (
           <div className="grid w-full grid-cols-1 pb-5 containerLayout xs:grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-y-4 gap-x-3 md:gap-6">
             {content}

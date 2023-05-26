@@ -34,6 +34,9 @@ const SearchResults = ({ search }: Props) => {
             className="w-full object-cover group-hover:opacity-10 transition-all h-auto min-h-[260px] max-h-[260px] lg:min-h-[320px] lg:max-h-[320px] rounded-t-lg"
           />
           <div className="absolute transition-all -z-50 group-hover:z-50 group-hover:block top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%]">
+            <h3 className="text-2xl font-semibold text-center text-white">
+              {search.name}
+            </h3>
             <p className="pt-2 pb-1 text-sm text-center text-white truncate md:text-base">
               <b>Network</b>:{' '}
               <span title={search.network}>
@@ -61,7 +64,7 @@ const SearchResults = ({ search }: Props) => {
             </p>
             <p
               title={search.network}
-              className="text-sm text-white rounded-full truncate bg-cyan-700 px-2 py-0.5"
+              className="text-sm text-white min-w-[50px] text-center rounded-full truncate bg-cyan-700 px-2 py-0.5"
             >
               {search.network || 'UNDEFINED'}
             </p>

@@ -2,12 +2,11 @@ import Layout from '@/components/Layout/Layout';
 import { useQuery } from '@tanstack/react-query';
 import { getShowDetails } from '../api/axios';
 import { useState, useEffect } from 'react';
-import PageButton from '@/components/PageButton';
-import Skeleton from '@/components/Skeleton';
 import TitleBanner from '@/components/common/TitleBanner';
-import { FiChevronLeft, FiChevronRight } from 'react-icons/fi';
 import { useRouter } from 'next/router';
-import SearchResults from '@/components/Search/SearchResults';
+import ShowDetails from '@/components/ShowDetails';
+import DetailSkeleton from '@/components/DetailSkeleton';
+import FSkeleton from '@/components/FSkeleton';
 
 export default function DetailsPage() {
   const router = useRouter();
@@ -28,30 +27,25 @@ export default function DetailsPage() {
     isFetching,
   } = useQuery(['/search', showTitle], () => getShowDetails(showTitle));
 
-  if (isLoading) return <Skeleton />;
+  if (isLoading) return <DetailSkeleton />;
 
   if (error instanceof Error) {
     if (isError) return <p>Error: {error.message}</p>;
   }
 
-  const content = showDetails.tvShows.map((results: any) => (
-    <SearchResults key={results.id} search={results} />
-  ));
+  console.log(showDetails.tvShow.id);
+
+  const content = (
+    <ShowDetails key={showDetails.tvShow.id} details={showDetails.tvShow} />
+  );
 
   return (
-    <Layout title={`Results for '${slug}'`}>
+    <Layout title={`TV Show Details: ${showDetails.tvShow.name}`}>
       <div className="bg-[#1c2532] h-full">
-        <TitleBanner title={`Results for: ${slug}`} />
+        <TitleBanner title={`TV Show Details: ${showDetails.tvShow.name}`} />
 
         {isFetching ? (
-          <div className="grid w-full pb-5 containerLayout xs:grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-y-4 gap-x-3 md:gap-6">
-            {[...Array(20)].map((e, i) => (
-              <div
-                className="w-full animate-[pulse_1s_infinite] bg-gray-700 h-auto min-h-[314px] max-h-[314px] lg:min-h-[384px] lg:max-h-[384px] rounded-lg"
-                key={i}
-              />
-            ))}
-          </div>
+          <FSkeleton />
         ) : (
           <div className="grid w-full grid-cols-1 pb-5 containerLayout xs:grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-y-4 gap-x-3 md:gap-6">
             {content}

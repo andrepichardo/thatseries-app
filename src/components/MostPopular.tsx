@@ -47,6 +47,9 @@ const MostPopular = ({ popular }: Props) => {
             />
           )}
           <div className="absolute transition-all -z-50 group-hover:z-50 group-hover:block top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%]">
+            <h3 className="text-2xl font-semibold text-center text-white">
+              {popular.name}
+            </h3>
             <p className="pt-2 pb-1 text-sm text-center text-white truncate md:text-base">
               <b>Network</b>:{' '}
               <span title={popular.network}>
@@ -74,7 +77,7 @@ const MostPopular = ({ popular }: Props) => {
             </p>
             <p
               title={popular.network}
-              className="text-sm text-white rounded-full truncate bg-cyan-700 px-2 py-0.5"
+              className="text-sm text-white min-w-[50px] text-center rounded-full truncate bg-cyan-700 px-2 py-0.5"
             >
               {popular.network || 'UNDEFINED'}
             </p>

@@ -4,8 +4,6 @@ import { useRouter } from 'next/router';
 const Breadcrumbs = () => {
   const router = useRouter();
 
-  console.log(router.pathname);
-
   return (
     <div className="absolute bottom-0 text-xs md:text-sm breadcrumbs left-3 xs:left-6 md:left-8 2xl:left-10">
       <ul>
@@ -13,6 +11,7 @@ const Breadcrumbs = () => {
           <Link href="/">Home</Link>
         </li>
         {router.pathname == '/' && <li>Most Popular</li>}
+        {router.pathname == '/search' && <li>Search</li>}
         {router.pathname == `/search/[slug]` && (
           <>
             <li>

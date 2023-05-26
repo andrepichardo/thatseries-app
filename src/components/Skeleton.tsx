@@ -9,7 +9,7 @@ const Skeleton = () => {
     <Layout title="Loading...">
       <TitleBanner
         title={
-          router.asPath === '/' || router.asPath === '/most-popular'
+          router.asPath === '/'
             ? 'Most Popular TV Shows'
             : `Results for: Loading...`
         }
