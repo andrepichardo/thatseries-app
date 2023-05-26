@@ -11,14 +11,25 @@ const Breadcrumbs = () => {
           <Link href="/">Home</Link>
         </li>
         {router.pathname == '/' && <li>Most Popular</li>}
+        {router.pathname == '/404' && <li>Error 404</li>}
         {router.pathname == '/search' && <li>Search</li>}
-        {router.pathname == `/search/[slug]` && (
+        {router.pathname == '/search/[slug]' && (
           <>
             <li>
               <Link href="/search">Search</Link>
             </li>
             <li className="">
               {router.asPath.substring(8).replaceAll('%20', ' ')}
+            </li>
+          </>
+        )}
+        {router.pathname == '/show-details/[slug]' && (
+          <>
+            <li>
+              <span className="pr-1">TV Show Details for:</span>
+              <span className="uppercase">
+                {router.asPath.substring(14).replaceAll('-', ' ')}
+              </span>
             </li>
           </>
         )}
