@@ -1,12 +1,12 @@
-import Image from 'next/image';
-import React, { ReactElement, useState } from 'react';
-import { Swiper, SwiperSlide } from 'swiper/react';
-import 'swiper/css';
-import 'swiper/css/pagination';
-import 'swiper/css/navigation';
-import NoImage from '../../public/images/no-image-png-2.png';
-import { Autoplay, Pagination, Navigation } from 'swiper';
-import { FiChevronDown, FiChevronUp } from 'react-icons/fi';
+import Image from "next/image";
+import React, { ReactElement, useState } from "react";
+import { Swiper, SwiperSlide } from "swiper/react";
+import "swiper/css";
+import "swiper/css/pagination";
+import "swiper/css/navigation";
+import NoImage from "../../public/images/no-image-png-2.png";
+import { Autoplay, Pagination, Navigation } from "swiper";
+import { FiChevronDown, FiChevronUp } from "react-icons/fi";
 
 type Props = {
   details: Provider;
@@ -37,6 +37,25 @@ interface Provider {
 }
 
 const ShowDetails = ({ details }: Props) => {
+  const output: any = details.episodes?.reduce((acc: any, item: any) => {
+    const composedArr = [...acc];
+
+    if (composedArr[item.season - 1]) {
+      composedArr[item.season - 1].push(item);
+    } else {
+      composedArr[item.season - 1] = [item];
+    }
+    return composedArr;
+  }, []);
+
+  const episode = {
+    air_date: "2012-10-11 00:00:00"
+  };
+  
+  const fecha = new Date(episode.air_date);
+  
+  const formattedDate = fecha.toLocaleDateString("en-US");
+
   const [isCollapsed, setIsCollapsed] = useState(true);
   const rating = parseInt(details.rating) || 0;
   const formattedRating = rating.toFixed(0);
@@ -46,7 +65,7 @@ const ShowDetails = ({ details }: Props) => {
   };
 
   return (
-    <div className="flex flex-col w-full gap-6 md:grid md:grid-cols-7 containerLayout">
+    <div className="flex flex-col w-full gap-6 pb-8 md:grid md:grid-cols-7 containerLayout">
       <div className="md:col-span-3 xl:col-span-2">
         <Swiper
           spaceBetween={30}
@@ -98,7 +117,7 @@ const ShowDetails = ({ details }: Props) => {
           <div className="overflow-hidden text-justify">
             <p
               dangerouslySetInnerHTML={{ __html: details.description }}
-              className={`${isCollapsed ? 'line-clamp-[4] ' : 'h-auto '}`}
+              className={`${isCollapsed ? "line-clamp-[4] " : "h-auto "}`}
             />
           </div>
           <button
@@ -113,9 +132,9 @@ const ShowDetails = ({ details }: Props) => {
           </button>
           <span className="w-full h-0.5 bg-gray-800 rounded-full" />
         </div>
-        <div className="grid w-full grid-cols-2 gap-3 md:text-lg">
+        <div className="grid w-full grid-cols-2 gap-3 md:text-lg pb-6">
           <div>
-            <b>Genres</b>:{' '}
+            <b>Genres</b>:{" "}
             {details.genres != undefined &&
               details.genres.map((genre: any, i: any) => (
                 <span key={i}>
@@ -127,24 +146,24 @@ const ShowDetails = ({ details }: Props) => {
               ))}
           </div>
           <div>
-            <b>Network</b>: <span>{details.network || 'UNDEFINED'}</span> (
+            <b>Network</b>: <span>{details.network || "UNDEFINED"}</span> (
             {details.country})
           </div>
           <div>
-            <b>Status</b>: <span>{details.status || 'UNDEFINED'}</span>
+            <b>Status</b>: <span>{details.status || "UNDEFINED"}</span>
           </div>
           <div>
-            <b>Start date</b>: <span>{details.start_date || 'UNDEFINED'}</span>
+            <b>Start date</b>: <span>{details.start_date || "UNDEFINED"}</span>
           </div>
           <div>
-            <b>Rating</b>:{' '}
+            <b>Rating</b>:{" "}
             <span>
-              {formattedRating || 0}/10 ({details.rating_count} users)
+              {formattedRating || 0}/10 ({details.rating_count} ratings)
             </span>
           </div>
           {details.youtube_link != null && (
             <div>
-              <b>Promo video</b>:{' '}
+              <b>Promo video</b>:{" "}
               <span>
                 <a
                   className="underline underline-offset-2 text-cyan-600"
@@ -158,6 +177,29 @@ const ShowDetails = ({ details }: Props) => {
             </div>
           )}
         </div>
+      </div>
+      <div className="w-full col-span-7">
+        <div className="flex flex-col gap-1 mb-3">
+          <h3 className="text-4xl font-semibold">Episodes</h3>
+          <span className="w-full h-0.5 bg-white rounded-full" />
+        </div>
+        {output != undefined &&
+          output.map((season: any, i: any) => (
+            <div className="space-y-0.5" key={i}>
+              <div className="underline text-xl font-semibold mt-6">{`Season ${i + 1}`}</div>
+              {season.map((episode: any, index: any) => {
+                return (
+                  <div className="w-full flex justify-between" key={index}>
+                    <div className="flex gap-1">
+                      <span>Episode {episode.episode} -</span>
+                      <span>{episode.name}</span>
+                    </div>
+                    <span>Air date: {formattedDate}</span>
+                  </div>
+                );
+              })}
+            </div>
+          ))}
       </div>
     </div>
   );
