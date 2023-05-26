@@ -29,10 +29,10 @@ Check out the live project [here](https://thatseries-app.vercel.app/).
 The application should now be running locally on your machine. You can access it by opening a web browser and navigating to `http://localhost:3000`.
 
 ## Features
-
+- **Most Popular TV Shows:** Display a complete list of Most Popular TV Shows.
 - **TV Show Search:** Search for TV shows using keywords to find relevant results.
 - **Pagination:** Navigate through search results using pagination.
-- **TV Show Details:** View detailed information about a specific TV show, including its name, air date, status, and summary.
+- **TV Show Details:** View detailed information about a specific TV show, including its name, pictures, summary, status, rating and more.
 
 ## Technologies Used
 
