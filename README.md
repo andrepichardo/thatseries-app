@@ -1,38 +1,49 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# ThatSeries App
 
-## Getting Started
+A simple application built with Next.js that connects to the EpisoDate API, allowing users to search for and navigate through TV shows. Users can also view detailed information about a specific TV show.
 
-First, run the development server:
+Check out the live project [here](https://thatseries-app.vercel.app/).
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-```
+## How to Run
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+1. Clone the repository by executing the following command in your terminal:
+   ```
+   git clone https://github.com/andrepichardo/thatseries-app.git
+   ```
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+2. Open the project folder:
+   ```
+   cd thatseries-app
+   ```
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
+3. Install the project dependencies using Yarn:
+   ```
+   yarn install
+   ```
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+4. Start the development server:
+   ```
+   yarn dev
+   ```
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+The application should now be running locally on your machine. You can access it by opening a web browser and navigating to `http://localhost:3000`.
 
-## Learn More
+## Features
 
-To learn more about Next.js, take a look at the following resources:
+- **TV Show Search:** Search for TV shows using keywords to find relevant results.
+- **Pagination:** Navigate through search results using pagination.
+- **TV Show Details:** View detailed information about a specific TV show, including its name, air date, status, and summary.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Technologies Used
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
 
-## Deploy on Vercel
+- **Next.js**: A React framework for building server-side rendered and static websites. It provides an intuitive development experience and efficient server-side rendering capabilities.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- **TailwindCSS**: A utility-first CSS framework that provides a set of pre-defined classes for building user interfaces. It allows for rapid UI development and easy customization.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+- **React Query**: A data-fetching library for React applications. It simplifies the management of remote data and provides features like caching, pagination, and automatic refetching.
+
+- **Axios**: A popular HTTP client library for making network requests in JavaScript. It is used to connect to the EpisoDate API and retrieve TV show data.
+
+- **TypeScript**: A statically typed superset of JavaScript that provides enhanced tooling and helps catch potential errors during development. It adds type annotations to improve code quality and maintainability.
+
