@@ -5,3 +5,17 @@
 .containerLayout {
   @apply mx-auto w-full h-full max-w-[1920px] px-3 xs:px-6 md:px-8 2xl:px-10;
 }
+
+.swiper-button-prev {
+  @apply scale-75 text-cyan-900 !important;
+}
+
+.swiper-button-next {
+  @apply scale-75 text-cyan-900 !important;
+}
+
+br {
+  content: 'A' !important;
+  display: block !important;
+  margin-bottom: 0.5em !important;
+}

@@ -33,24 +33,14 @@ export default function DetailsPage() {
     if (isError) return <p>Error: {error.message}</p>;
   }
 
-  console.log(showDetails.tvShow.id);
-
-  const content = (
-    <ShowDetails key={showDetails.tvShow.id} details={showDetails.tvShow} />
-  );
+  const content = <ShowDetails details={showDetails.tvShow} />;
 
   return (
     <Layout title={`TV Show Details: ${showDetails.tvShow.name}`}>
       <div className="bg-[#1c2532] h-full">
         <TitleBanner title={`TV Show Details: ${showDetails.tvShow.name}`} />
 
-        {isFetching ? (
-          <FSkeleton />
-        ) : (
-          <div className="grid w-full grid-cols-1 pb-5 containerLayout xs:grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-y-4 gap-x-3 md:gap-6">
-            {content}
-          </div>
-        )}
+        {isFetching ? <FSkeleton /> : content}
       </div>
     </Layout>
   );

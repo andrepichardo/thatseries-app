@@ -1,7 +1,12 @@
 import Image from 'next/image';
-import Link from 'next/link';
-import React from 'react';
-import { TbListDetails } from 'react-icons/tb';
+import React, { ReactElement, useState } from 'react';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import 'swiper/css';
+import 'swiper/css/pagination';
+import 'swiper/css/navigation';
+import NoImage from '../../public/images/no-image-png-2.png';
+import { Autoplay, Pagination, Navigation } from 'swiper';
+import { FiChevronDown, FiChevronUp } from 'react-icons/fi';
 
 type Props = {
   details: Provider;
@@ -12,7 +17,7 @@ interface Provider {
   name: string;
   permalink: string;
   url: string;
-  description: string;
+  description: any;
   description_source: string;
   start_date: string;
   end_date: string | null;
@@ -23,7 +28,7 @@ interface Provider {
   youtube_link: string | null;
   image_path: string;
   image_thumbnail_path: string;
-  rating: string | number;
+  rating: any;
   rating_count: string;
   countdown: string | null;
   genres: Array<string>;
@@ -32,12 +37,128 @@ interface Provider {
 }
 
 const ShowDetails = ({ details }: Props) => {
+  const [isCollapsed, setIsCollapsed] = useState(true);
+  const rating = parseInt(details.rating) || 0;
+  const formattedRating = rating.toFixed(0);
+
+  const toggleCollapse = () => {
+    setIsCollapsed(!isCollapsed);
+  };
+
   return (
-    <div
-      title={details.name}
-      className="font-semibold truncate whitespace-nowrap"
-    >
-      {details.name}
+    <div className="flex flex-col w-full gap-6 md:grid md:grid-cols-7 containerLayout">
+      <div className="md:col-span-3 xl:col-span-2">
+        <Swiper
+          spaceBetween={30}
+          centeredSlides={true}
+          autoplay={{
+            delay: 5000,
+            disableOnInteraction: false,
+          }}
+          pagination={{
+            clickable: true,
+          }}
+          navigation={true}
+          modules={[Autoplay, Pagination, Navigation]}
+          className="mySwiper"
+        >
+          <SwiperSlide>
+            <Image
+              priority
+              src={details.image_path || NoImage}
+              alt=""
+              width={100000}
+              height={100000}
+              sizes="100vw"
+              className="w-full transition-all h-auto min-h-[500px] max-h-[500px] rounded"
+            />
+          </SwiperSlide>
+          {details.pictures != undefined &&
+            details.pictures.map((picture: any, i: any) => (
+              <SwiperSlide key={i}>
+                <Image
+                  src={picture || NoImage}
+                  alt=""
+                  width={100000}
+                  height={100000}
+                  sizes="100vw"
+                  className="w-full transition-all h-auto min-h-[500px] max-h-[500px] rounded-lg"
+                />
+              </SwiperSlide>
+            ))}
+        </Swiper>
+      </div>
+      <div className="flex flex-col gap-5 md:col-span-4 xl:col-span-5">
+        <div className="flex flex-col gap-3">
+          <div className="flex flex-col gap-1">
+            <h3 className="text-4xl font-semibold">Description</h3>
+            <span className="w-full h-0.5 bg-white rounded-full" />
+          </div>
+          <p className="text-justify line-clamp-[7]"></p>
+          <div className="overflow-hidden text-justify">
+            <p
+              dangerouslySetInnerHTML={{ __html: details.description }}
+              className={`${isCollapsed ? 'line-clamp-[4] ' : 'h-auto '}`}
+            />
+          </div>
+          <button
+            className="flex justify-center mt-0 text-blue-500 hover:underline"
+            onClick={toggleCollapse}
+          >
+            {isCollapsed ? (
+              <FiChevronDown size={24} />
+            ) : (
+              <FiChevronUp size={24} />
+            )}
+          </button>
+          <span className="w-full h-0.5 bg-gray-800 rounded-full" />
+        </div>
+        <div className="grid w-full grid-cols-2 gap-3 md:text-lg">
+          <div>
+            <b>Genres</b>:{' '}
+            {details.genres != undefined &&
+              details.genres.map((genre: any, i: any) => (
+                <span key={i}>
+                  <span className="cursor-default hover:text-gray-400">
+                    {genre}
+                  </span>
+                  {i !== details.genres.length - 1 && <span> | </span>}
+                </span>
+              ))}
+          </div>
+          <div>
+            <b>Network</b>: <span>{details.network || 'UNDEFINED'}</span> (
+            {details.country})
+          </div>
+          <div>
+            <b>Status</b>: <span>{details.status || 'UNDEFINED'}</span>
+          </div>
+          <div>
+            <b>Start date</b>: <span>{details.start_date || 'UNDEFINED'}</span>
+          </div>
+          <div>
+            <b>Rating</b>:{' '}
+            <span>
+              {formattedRating || 0}/10 ({details.rating_count} users)
+            </span>
+          </div>
+          {details.youtube_link != null && (
+            <div>
+              <b>Promo video</b>:{' '}
+              <span>
+                <a
+                  className="underline underline-offset-2 text-cyan-600"
+                  target="_blank"
+                  rel="noopener"
+                  href={`https://www.youtube.com/watch?v=${details.youtube_link}`}
+                >
+                  Youtube
+                </a>
+              </span>
+            </div>
+          )}
+        </div>
+      </div>
     </div>
   );
 };

@@ -48,6 +48,7 @@ export const Search = () => {
           placeholder="Search by TV Show..."
           className="h-[35px] pl-3 pr-10 text-sm font-semibold transition-all duration-300 rounded-full outline-none focus:ring-2 ring-2 ring-transparent focus:ring-cyan-700 md:w-48 lg:w-60 placeholder:text-xs text-cyan-600"
           type="search"
+          maxLength={50}
         />
         <button
           type="submit"

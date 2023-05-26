@@ -18,16 +18,18 @@ const Breadcrumbs = () => {
             <li>
               <Link href="/search">Search</Link>
             </li>
-            <li className="">
-              {router.asPath.substring(8).replaceAll('%20', ' ')}
+            <li className="pr-5 truncate">
+              <span className="truncate">
+                {router.asPath.substring(8).replaceAll('%20', ' ')}
+              </span>
             </li>
           </>
         )}
         {router.pathname == '/show-details/[slug]' && (
           <>
-            <li>
+            <li className="pr-5 truncate">
               <span className="pr-1">TV Show Details for:</span>
-              <span className="uppercase">
+              <span className="uppercase truncate">
                 {router.asPath.substring(14).replaceAll('-', ' ')}
               </span>
             </li>
