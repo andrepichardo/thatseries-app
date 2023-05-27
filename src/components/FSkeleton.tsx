@@ -10,7 +10,7 @@ const FSkeleton = () => {
       ) : (
         [...Array(20)].map((e, i) => (
           <div
-            className="w-full animate-[pulse_1s_infinite] bg-gray-700 h-auto min-h-[314px] max-h-[314px] lg:min-h-[384px] lg:max-h-[384px] rounded-lg"
+            className="w-full animate-[pulse_1s_infinite] bg-gray-700 h-auto min-h-[464px] max-h-[464px] xs:min-h-[324px] xs:max-h-[324px] lg:min-h-[384px] lg:max-h-[384px] rounded-lg"
             key={i}
           />
         ))

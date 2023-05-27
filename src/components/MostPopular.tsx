@@ -33,17 +33,17 @@ const MostPopular = ({ popular }: Props) => {
               width={100000}
               height={100000}
               sizes="100vw"
-              className="w-full object-cover group-hover:opacity-10 transition-all h-auto min-h-[260px] max-h-[260px] lg:min-h-[320px] lg:max-h-[320px] rounded-t-lg"
+              className="w-full object-cover group-hover:opacity-10 transition-all h-auto min-h-[400px] max-h-[400px] xs:min-h-[260px] xs:max-h-[260px] lg:min-h-[320px] lg:max-h-[320px] rounded-t-lg"
             />
           ) : (
             <Image
               priority
-              src={popular.image_thumbnail_path}
+              src={popular.image_thumbnail_path.replaceAll('thumbnail', 'full')}
               alt=""
               width={100000}
               height={100000}
               sizes="100vw"
-              className="w-full object-cover group-hover:opacity-10 transition-all h-auto min-h-[260px] max-h-[260px] lg:min-h-[320px] lg:max-h-[320px] rounded-t-lg"
+              className="w-full object-cover group-hover:opacity-10 transition-all h-auto min-h-[400px] max-h-[400px] xs:min-h-[260px] xs:max-h-[260px] lg:min-h-[320px] lg:max-h-[320px] rounded-t-lg"
             />
           )}
           <div className="absolute transition-all -z-50 group-hover:z-50 group-hover:block top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%]">
