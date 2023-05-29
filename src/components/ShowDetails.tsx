@@ -1,12 +1,12 @@
-import Image from "next/image";
-import React, { ReactElement, useState } from "react";
-import { Swiper, SwiperSlide } from "swiper/react";
-import "swiper/css";
-import "swiper/css/pagination";
-import "swiper/css/navigation";
-import NoImage from "../../public/images/no-image-png-2.png";
-import { Autoplay, Pagination, Navigation } from "swiper";
-import { FiChevronDown, FiChevronUp } from "react-icons/fi";
+import Image from 'next/image';
+import React, { ReactElement, useState } from 'react';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import 'swiper/css';
+import 'swiper/css/pagination';
+import 'swiper/css/navigation';
+import NoImage from '../../public/images/no-image-png-2.png';
+import { Autoplay, Pagination, Navigation } from 'swiper';
+import { FiChevronDown, FiChevronUp } from 'react-icons/fi';
 
 type Props = {
   details: Provider;
@@ -38,10 +38,10 @@ interface Provider {
 
 function formatDate(date: string) {
   // Split the date and time
-  const [datePart] = date.split(" ");
+  const [datePart] = date.split(' ');
 
   // Split the year, month, and day
-  const [year, month, day] = datePart.split("-");
+  const [year, month, day] = datePart.split('-');
 
   // Format the date to "YYYY/MM/DD"
   const formattedDate = `${year}/${month}/${day}`;
@@ -88,15 +88,27 @@ const ShowDetails = ({ details }: Props) => {
           className="mySwiper"
         >
           <SwiperSlide>
-            <Image
-              priority
-              src={details.image_path || NoImage}
-              alt=""
-              width={100000}
-              height={100000}
-              sizes="100vw"
-              className="w-full object-cover transition-all h-auto min-h-[500px] max-h-[500px] rounded"
-            />
+            {!details.image_path?.includes('tv-show') ? (
+              <Image
+                priority
+                src={NoImage}
+                alt=""
+                width={100000}
+                height={100000}
+                sizes="100vw"
+                className="w-full object-cover transition-all h-auto min-h-[500px] max-h-[500px] rounded"
+              />
+            ) : (
+              <Image
+                priority
+                src={details.image_path}
+                alt=""
+                width={100000}
+                height={100000}
+                sizes="100vw"
+                className="w-full object-cover transition-all h-auto min-h-[500px] max-h-[500px] rounded"
+              />
+            )}
           </SwiperSlide>
           {details.pictures != undefined &&
             details.pictures.map((picture: any, i: any) => (
@@ -123,7 +135,7 @@ const ShowDetails = ({ details }: Props) => {
           <div className="overflow-hidden text-justify">
             <p
               dangerouslySetInnerHTML={{ __html: details.description }}
-              className={`${isCollapsed ? "line-clamp-[4] " : "h-auto "}`}
+              className={`${isCollapsed ? 'line-clamp-[4] ' : 'h-auto '}`}
             />
           </div>
           <button
@@ -138,9 +150,9 @@ const ShowDetails = ({ details }: Props) => {
           </button>
           <span className="w-full h-0.5 bg-gray-800 rounded-full" />
         </div>
-        <div className="grid w-full grid-cols-2 gap-3 md:text-lg pb-6">
+        <div className="grid w-full grid-cols-2 gap-3 pb-6 md:text-lg">
           <div>
-            <b>Genres</b>:{" "}
+            <b>Genres</b>:{' '}
             {details.genres != undefined &&
               details.genres.map((genre: any, i: any) => (
                 <span key={i}>
@@ -152,24 +164,24 @@ const ShowDetails = ({ details }: Props) => {
               ))}
           </div>
           <div>
-            <b>Network</b>: <span>{details.network || "UNDEFINED"}</span> (
+            <b>Network</b>: <span>{details.network || 'UNDEFINED'}</span> (
             {details.country})
           </div>
           <div>
-            <b>Status</b>: <span>{details.status || "UNDEFINED"}</span>
+            <b>Status</b>: <span>{details.status || 'UNDEFINED'}</span>
           </div>
           <div>
-            <b>Start date</b>: <span>{details.start_date || "UNDEFINED"}</span>
+            <b>Start date</b>: <span>{details.start_date || 'UNDEFINED'}</span>
           </div>
           <div>
-            <b>Rating</b>:{" "}
+            <b>Rating</b>:{' '}
             <span>
               {formattedRating || 0}/10 ({details.rating_count} ratings)
             </span>
           </div>
           {details.youtube_link != null && (
             <div>
-              <b>Promo video</b>:{" "}
+              <b>Promo video</b>:{' '}
               <span>
                 <a
                   className="underline underline-offset-2 text-cyan-600"
@@ -194,19 +206,19 @@ const ShowDetails = ({ details }: Props) => {
             <div
               key={i}
               tabIndex={0}
-              className="collapse collapse-plus border border-base-300 bg-base-100 rounded-box mt-3"
+              className="mt-3 border collapse collapse-plus border-base-300 bg-base-100 rounded-box"
             >
               <input type="checkbox" />
-              <div className="collapse-title text-xl font-medium">
-                <div className="underline text-xl font-semibold">{`Season ${
+              <div className="text-xl font-medium collapse-title">
+                <div className="text-xl font-semibold underline">{`Season ${
                   i + 1
                 }`}</div>
               </div>
-              <div className="collapse-content flex flex-col gap-2">
-                {season.map((episode: any, index: any) => {
+              <div className="flex flex-col gap-2 collapse-content">
+                {season?.map((episode: any, index: any) => {
                   return (
                     <div
-                      className="w-full flex justify-between gap-1 text-sm md:text-base truncate"
+                      className="flex justify-between w-full gap-1 text-sm truncate md:text-base"
                       key={index}
                     >
                       <div className="flex gap-1 truncate">
