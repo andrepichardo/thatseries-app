@@ -1,13 +1,13 @@
-import { getSearch } from '@/pages/api/axios';
-import { useQuery } from '@tanstack/react-query';
-import { useRouter } from 'next/router';
-import React from 'react';
-import { useState, useRef } from 'react';
-import { FiSearch } from 'react-icons/fi';
+import { getSearch } from "@/pages/api/axios";
+import { useQuery } from "@tanstack/react-query";
+import { useRouter } from "next/router";
+import React from "react";
+import { useState, useRef } from "react";
+import { FiSearch } from "react-icons/fi";
 
 export const Search = () => {
   const inputRef = useRef<HTMLInputElement>(null);
-  const [search, setSearch] = useState('');
+  const [search, setSearch] = useState("");
   const [mobileSearch, setMobileSearch] = useState(false);
   const router = useRouter();
 
@@ -25,11 +25,11 @@ export const Search = () => {
     if (mobileSearch == true && search.length > 0) {
       setMobileSearch(false);
     }
-    setSearch('');
+    setSearch("");
   };
 
   const handleKeyDown = (event: any) => {
-    if (event.key === 'Enter') {
+    if (event.key === "Enter") {
       handleSearch();
       if (mobileSearch == true && search.length > 0) {
         setMobileSearch(false);
@@ -70,8 +70,8 @@ export const Search = () => {
       <div
         className={
           mobileSearch
-            ? 'w-11/12 max-w-lg left-0 px-3 top-5 right-0 fixed mx-auto z-50 transition-all duration-500'
-            : 'w-11/12 max-w-lg left-0 px-3 top-[-100%] right-0 fixed mx-auto z-50 transition-all duration-500'
+            ? "w-11/12 max-w-lg left-0 px-3 top-5 right-0 fixed mx-auto z-50 transition-all duration-500"
+            : "w-11/12 max-w-lg left-0 px-3 top-[-100%] right-0 fixed mx-auto z-50 transition-all duration-500"
         }
       >
         <input
@@ -87,6 +87,7 @@ export const Search = () => {
           placeholder="Search by TV Show..."
           className="w-full py-4 pl-4 font-semibold rounded-full outline-none pr-14 text-cyan-600"
           type="search"
+          maxLength={50}
         />
         <FiSearch
           onClick={handleSearch}
