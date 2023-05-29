@@ -26,7 +26,7 @@ const SearchResults = ({ search }: Props) => {
         <div className="relative group">
           <Image
             priority
-            src={search.image_thumbnail_path}
+            src={search.image_thumbnail_path.replaceAll('thumbnail', 'full')}
             alt=""
             width={100000}
             height={100000}

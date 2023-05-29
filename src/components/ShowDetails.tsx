@@ -36,25 +36,31 @@ interface Provider {
   episodes: Array<Object>;
 }
 
+function formatDate(date: string) {
+  // Split the date and time
+  const [datePart] = date.split(" ");
+
+  // Split the year, month, and day
+  const [year, month, day] = datePart.split("-");
+
+  // Format the date to "YYYY/MM/DD"
+  const formattedDate = `${year}/${month}/${day}`;
+  return formattedDate;
+}
+
 const ShowDetails = ({ details }: Props) => {
-  const output: any = details.episodes?.reduce((acc: any, item: any) => {
-    const composedArr = [...acc];
+  const output: any = details.episodes
+    ?.map((x: any) => ({ ...x, air_date: formatDate(x.air_date) }))
+    .reduce((acc: any, item: any) => {
+      const composedArr = [...acc];
 
-    if (composedArr[item.season - 1]) {
-      composedArr[item.season - 1].push(item);
-    } else {
-      composedArr[item.season - 1] = [item];
-    }
-    return composedArr;
-  }, []);
-
-  const episode = {
-    air_date: "2012-10-11 00:00:00"
-  };
-  
-  const fecha = new Date(episode.air_date);
-  
-  const formattedDate = fecha.toLocaleDateString("en-US");
+      if (composedArr[item.season - 1]) {
+        composedArr[item.season - 1].push(item);
+      } else {
+        composedArr[item.season - 1] = [item];
+      }
+      return composedArr;
+    }, []);
 
   const [isCollapsed, setIsCollapsed] = useState(true);
   const rating = parseInt(details.rating) || 0;
@@ -89,7 +95,7 @@ const ShowDetails = ({ details }: Props) => {
               width={100000}
               height={100000}
               sizes="100vw"
-              className="w-full transition-all h-auto min-h-[500px] max-h-[500px] rounded"
+              className="w-full object-cover transition-all h-auto min-h-[500px] max-h-[500px] rounded"
             />
           </SwiperSlide>
           {details.pictures != undefined &&
@@ -101,7 +107,7 @@ const ShowDetails = ({ details }: Props) => {
                   width={100000}
                   height={100000}
                   sizes="100vw"
-                  className="w-full transition-all h-auto min-h-[500px] max-h-[500px] rounded-lg"
+                  className="w-full object-cover transition-all h-auto min-h-[500px] max-h-[500px] rounded-lg"
                 />
               </SwiperSlide>
             ))}
@@ -179,25 +185,39 @@ const ShowDetails = ({ details }: Props) => {
         </div>
       </div>
       <div className="w-full col-span-7">
-        <div className="flex flex-col gap-1 mb-3">
+        <div className="flex flex-col gap-1 mb-6">
           <h3 className="text-4xl font-semibold">Episodes</h3>
           <span className="w-full h-0.5 bg-white rounded-full" />
         </div>
         {output != undefined &&
           output.map((season: any, i: any) => (
-            <div className="space-y-0.5" key={i}>
-              <div className="underline text-xl font-semibold mt-6">{`Season ${i + 1}`}</div>
-              {season.map((episode: any, index: any) => {
-                return (
-                  <div className="w-full flex justify-between" key={index}>
-                    <div className="flex gap-1">
-                      <span>Episode {episode.episode} -</span>
-                      <span>{episode.name}</span>
+            <div
+              key={i}
+              tabIndex={0}
+              className="collapse collapse-plus border border-base-300 bg-base-100 rounded-box mt-3"
+            >
+              <input type="checkbox" />
+              <div className="collapse-title text-xl font-medium">
+                <div className="underline text-xl font-semibold">{`Season ${
+                  i + 1
+                }`}</div>
+              </div>
+              <div className="collapse-content flex flex-col gap-2">
+                {season.map((episode: any, index: any) => {
+                  return (
+                    <div
+                      className="w-full flex justify-between text-sm md:text-base truncate"
+                      key={index}
+                    >
+                      <div className="flex gap-1 truncate">
+                        <span>Episode {episode.episode} -</span>
+                        <span className="truncate">{episode.name}</span>
+                      </div>
+                      <span>Air date: {episode.air_date}</span>
                     </div>
-                    <span>Air date: {formattedDate}</span>
-                  </div>
-                );
-              })}
+                  );
+                })}
+              </div>
             </div>
           ))}
       </div>
