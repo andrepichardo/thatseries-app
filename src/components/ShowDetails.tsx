@@ -206,7 +206,7 @@ const ShowDetails = ({ details }: Props) => {
                 {season.map((episode: any, index: any) => {
                   return (
                     <div
-                      className="w-full flex justify-between text-sm md:text-base truncate"
+                      className="w-full flex justify-between gap-1 text-sm md:text-base truncate"
                       key={index}
                     >
                       <div className="flex gap-1 truncate">
