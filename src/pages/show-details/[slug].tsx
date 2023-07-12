@@ -25,7 +25,7 @@ export default function DetailsPage() {
     error,
     data: showDetails,
     isFetching,
-  } = useQuery(['/search', showTitle], () => getShowDetails(showTitle));
+  } = useQuery(['/show-details', showTitle], () => getShowDetails(showTitle));
 
   if (isLoading) return <DetailSkeleton />;
 
